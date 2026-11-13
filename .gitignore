@@ -1,0 +1,4 @@
+node_modules/
+_canvas/
+.vercel/
+.env*

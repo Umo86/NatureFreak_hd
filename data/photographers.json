@@ -1,0 +1,73 @@
+[
+ {
+  "slug": "alex-rivers",
+  "name": "Alex Rivers",
+  "loc": "Fort William, Scotland",
+  "tags": [
+   "Wildlife",
+   "Birds"
+  ],
+  "hire": true,
+  "bio": "Red deer, eagles and anything else that lives above the tree line. Available for guided shoots and editorial work.",
+  "example": true
+ },
+ {
+  "slug": "maya-stone",
+  "name": "Maya Stone",
+  "loc": "Cornwall, England",
+  "tags": [
+   "Underwater",
+   "Wildlife"
+  ],
+  "hire": true,
+  "bio": "Seals, kelp forests and cold-water diving along the Cornish coast.",
+  "example": true
+ },
+ {
+  "slug": "tom-heath",
+  "name": "Tom Heath",
+  "loc": "Lake District, England",
+  "tags": [
+   "Landscape",
+   "Aerial"
+  ],
+  "hire": false,
+  "bio": "Fells, tarns and long exposures. Mostly out before sunrise.",
+  "example": true
+ },
+ {
+  "slug": "lena-frost",
+  "name": "Lena Frost",
+  "loc": "Tromsø, Norway",
+  "tags": [
+   "Landscape",
+   "Wildlife"
+  ],
+  "hire": true,
+  "bio": "Arctic light, reindeer and the aurora. Runs small winter workshops.",
+  "example": true
+ },
+ {
+  "slug": "sam-brook",
+  "name": "Sam Brook",
+  "loc": "Norfolk, England",
+  "tags": [
+   "Birds",
+   "Macro"
+  ],
+  "hire": false,
+  "bio": "Waders, owls and the insects most people walk past.",
+  "example": true
+ },
+ {
+  "slug": "priya-dale",
+  "name": "Priya Dale",
+  "loc": "Nairobi, Kenya",
+  "tags": [
+   "Wildlife"
+  ],
+  "hire": true,
+  "bio": "Big cats and elephants on the plains of the Mara. Available for assignments.",
+  "example": true
+ }
+]

@@ -1,0 +1,329 @@
+{
+  "about": {
+    "title": "About NATUREFreak",
+    "intro": "NATUREFreak is a home for nature stories and the people who photograph them.",
+    "sections": [
+      {
+        "h": "What we do",
+        "p": [
+          "NATUREFreak is three things in one place. First, a journal of nature stories about places, wildlife, oceans and photography. Second, a free directory of nature photographers, where anyone who photographs nature can be listed. Third, paid features on our Instagram and Facebook account, @naturefreak_hd, which has 146k followers on Instagram."
+        ]
+      },
+      {
+        "h": "Credit where it is due",
+        "p": [
+          "Every photo we show is credited to the person who took it. If you spot a photo that is missing a credit or has the wrong one, please tell us through the contact form and we will correct it."
+        ]
+      },
+      {
+        "h": "Paid features",
+        "p": [
+          "Photographers and brands can pay to have their work featured on @naturefreak_hd. Paid features are always labelled as paid, so you can tell them apart from the rest of what we post.",
+          "The directory and the journal are separate from this. Being listed in the directory is free and does not depend on buying anything."
+        ]
+      },
+      {
+        "h": "Get in touch",
+        "p": [
+          "If you have a question, a correction or an idea, use the form on the contact page. We read everything that comes in."
+        ]
+      }
+    ],
+    "draft": false
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "Use the form on this page for questions, corrections, press and advertising enquiries. We reply by email, so please make sure you give us an address we can reach you on.",
+    "sections": [
+      {
+        "h": "What to use the form for",
+        "p": [
+          "Use the form for questions, corrections, press and advertising enquiries. If you are asking about a correction, include a link to the page or post."
+        ]
+      },
+      {
+        "h": "What to include",
+        "p": [
+          "Tell us what your message is about and give as much detail as you can. If you are asking about a featured post, tell us roughly what you have in mind and when you would like it to run.",
+          "We read every message, and we will reply to you by email as soon as we can."
+        ]
+      }
+    ],
+    "draft": false
+  },
+  "submission-guidelines": {
+    "title": "Submission guidelines",
+    "intro": "These guidelines apply to anyone sending us photographs or asking to be listed. They are short, and they are there to keep the work honest and the wildlife safe.",
+    "sections": [
+      {
+        "h": "Your own work",
+        "p": [
+          "Only send us work that you made yourself. If you did not take the photograph, please do not submit it. Subjects should be nature, wildlife or landscape."
+        ]
+      },
+      {
+        "h": "Treat wildlife with respect",
+        "p": [
+          "We will not accept photographs where an animal was baited, handled or disturbed to get the shot. If the welfare of the animal came second to the picture, it is not for us."
+        ]
+      },
+      {
+        "h": "Honest captions and locations",
+        "p": [
+          "Please give an honest caption and an honest location. Tell us what the subject is and where you took the photograph. If an image has been heavily edited, or was taken in captivity, say so."
+        ]
+      },
+      {
+        "h": "Files",
+        "p": [
+          "Send images at a good resolution, and please avoid heavy watermarks that cover the subject. A small credit in a corner is fine."
+        ]
+      },
+      {
+        "h": "Our decision",
+        "p": [
+          "We may decline work, and we do not have to give a reason. Not every submission will be right for us, and that is not a judgement on your photography."
+        ]
+      }
+    ],
+    "draft": false
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "intro": "Short answers to the questions we are asked most often. If yours is not here, use the contact form.",
+    "sections": [
+      {
+        "h": "Is the directory really free?",
+        "p": [
+          "Yes. Listing yourself in the directory of nature photographers is free."
+        ]
+      },
+      {
+        "h": "Who can join?",
+        "p": [
+          "Anyone who photographs nature. You do not need to be a professional, and you do not need a particular number of followers."
+        ]
+      },
+      {
+        "h": "How long does a listing take to review?",
+        "p": [
+          "We review each listing before it goes live. We check that the details look right and that the work fits our submission guidelines."
+        ]
+      },
+      {
+        "h": "How do featured posts work?",
+        "p": [
+          "You choose what you would like: a story, a post or a reel. You write the caption and pick a date. We then confirm the booking and send you a payment link."
+        ]
+      },
+      {
+        "h": "Are featured posts labelled as paid?",
+        "p": [
+          "Yes. Every paid feature carries the paid partnership label, and the caption starts with \"Ad\"."
+        ]
+      },
+      {
+        "h": "Do I keep my rights?",
+        "p": [
+          "Yes. Your photographs remain yours. Being listed or featured does not transfer ownership to us."
+        ]
+      }
+    ],
+    "draft": false
+  },
+  "paid-partnership-policy": {
+    "title": "Paid partnership policy",
+    "intro": "Draft for review. This is a plain-English draft of how we handle paid features, and it is not legal advice. It should be checked before it is relied on.",
+    "sections": [
+      {
+        "h": "Paid features are advertising",
+        "p": [
+          "When someone pays for a feature on @naturefreak_hd, that is advertising, and we treat it as such. We do not present paid work as if it were our own editorial choice."
+        ]
+      },
+      {
+        "h": "How we label them",
+        "p": [
+          "Every paid feature carries Instagram's paid partnership label, and the caption begins with \"Ad\". The label and the wording are there so that nobody has to guess whether something was paid for."
+        ]
+      },
+      {
+        "h": "What we will feature",
+        "p": [
+          "We only feature work that the photographer owns. If we have reason to think the work belongs to someone else, we will not publish it."
+        ]
+      },
+      {
+        "h": "Our right to refuse or remove",
+        "p": [
+          "We can refuse content, and we can remove content that has already been published. We will use that right if content breaks our submission guidelines, is misleading, or puts wildlife at risk."
+        ]
+      }
+    ],
+    "draft": true
+  },
+  "refunds": {
+    "title": "Refunds",
+    "intro": "Draft for review. This is a plain-English draft of our refund approach for paid features, and it is not legal advice. The time limits are placeholders that still need to be set.",
+    "sections": [
+      {
+        "h": "When you get a full refund",
+        "p": [
+          "You will receive a full refund if we cannot publish your feature on the agreed date and you do not accept an alternative slot that we offer. You will also receive a full refund if we decline your content."
+        ]
+      },
+      {
+        "h": "When we cannot refund",
+        "p": [
+          "Once a feature has been published, we cannot offer a refund. The work has been delivered at that point, and it cannot be undone."
+        ]
+      },
+      {
+        "h": "How to ask for a refund",
+        "p": [
+          "Use the contact form and tell us which booking you mean and why you are asking. Please ask within [X] days of the agreed date. We will reply by email, and approved refunds will be paid back within [X] days."
+        ]
+      }
+    ],
+    "draft": true
+  },
+  "terms": {
+    "title": "Terms of use",
+    "intro": "Draft for review. This is a plain-English draft of terms of use for NATUREFreak, and it is not legal advice. It needs to be checked and completed before it is relied on.",
+    "sections": [
+      {
+        "h": "Using the site",
+        "p": [
+          "NATUREFreak is operated by [COMPANY NAME]. You may use the site for your own personal, lawful purposes. Please do not misuse it, try to break it, or use it to mislead other people."
+        ]
+      },
+      {
+        "h": "Directory listings",
+        "p": [
+          "If you create a listing, you are responsible for making sure that the information is accurate. We may edit or remove any listing, including to keep the directory accurate and in line with our submission guidelines."
+        ]
+      },
+      {
+        "h": "Content and ownership",
+        "p": [
+          "Photographs and other work stay with the people who made them. By submitting work, you give us permission to display it on the site and, if you have booked a feature, on our social media accounts for that purpose."
+        ]
+      },
+      {
+        "h": "Paid features",
+        "p": [
+          "Paid features are advertising and are labelled as such. They are subject to our paid partnership policy and our refunds page."
+        ]
+      },
+      {
+        "h": "Liability and changes",
+        "p": [
+          "We take care over the site, but we cannot promise that it will always be available or free from errors, and we are not responsible for losses that arise from using it, to the extent the law allows. We may change these terms from time to time. They are governed by the laws of [COUNTRY]."
+        ]
+      }
+    ],
+    "draft": true
+  },
+  "privacy": {
+    "title": "Privacy notice",
+    "intro": "Draft for review. This is a plain-English draft privacy notice for NATUREFreak, and it is not legal advice. It needs to be checked and completed before it is relied on.",
+    "sections": [
+      {
+        "h": "What we collect",
+        "p": [
+          "We collect the information you give us: your name, email address, location, links, bio, any messages you send us, and booking details if you arrange a paid feature."
+        ]
+      },
+      {
+        "h": "Why we collect it",
+        "p": [
+          "We use it to run the directory, to reply to your messages, to arrange and confirm paid features, and to keep the site working. [COMPANY NAME] is responsible for this information."
+        ]
+      },
+      {
+        "h": "What is public",
+        "p": [
+          "Directory listings are public. Your email address is not shown on your listing, and we do not publish it."
+        ]
+      },
+      {
+        "h": "Keeping and deleting your information",
+        "p": [
+          "We keep personal information for [RETENTION PERIOD], unless we need to keep it longer for a good reason. To ask us to delete your information or your listing, use the contact form and we will reply by email."
+        ]
+      }
+    ],
+    "draft": true
+  },
+  "cookies": {
+    "title": "Cookies",
+    "intro": "Draft for review. This is a short plain-English draft about cookies and similar storage, and it is not legal advice. It should be checked before it is relied on.",
+    "sections": [
+      {
+        "h": "What the site stores",
+        "p": [
+          "The site stores a small amount of data in your browser. It is used to remember your progress in a form, so that you do not lose what you have typed if you leave the page and come back."
+        ]
+      },
+      {
+        "h": "Advertising and analytics",
+        "p": [
+          "We do not use advertising cookies at present. If we add analytics in future, we will update this page to say so and to explain what is collected."
+        ]
+      },
+      {
+        "h": "Your choices",
+        "p": [
+          "You can clear the data stored by the site at any time through your browser settings. If you do, the site will simply forget your form progress."
+        ]
+      }
+    ],
+    "draft": true
+  },
+  "press": {
+    "title": "Press",
+    "intro": "Information for journalists and editors who would like to write about NATUREFreak.",
+    "sections": [
+      {
+        "h": "About NATUREFreak",
+        "p": [
+          "NATUREFreak is a nature-stories journal and a free directory of nature photographers, with paid featured posts on the Instagram and Facebook account @naturefreak_hd. The Instagram account has 146k followers. Every photo is credited to its photographer, and all paid features are labelled as paid.",
+          "We are happy to answer questions about how the directory works, how paid features are labelled, and how we credit photographers."
+        ]
+      },
+      {
+        "h": "Get in touch",
+        "p": [
+          "For press enquiries, use the form on the contact page and tell us which publication you are writing for and what you need. We will reply by email.",
+          "Please tell us your deadline if you have one, so that we can reply in time."
+        ]
+      }
+    ],
+    "draft": false
+  },
+  "advertise": {
+    "title": "Advertise with us",
+    "intro": "Brands and tourism boards can work with NATUREFreak through paid partnerships on @naturefreak_hd, which has 146k followers on Instagram.",
+    "sections": [
+      {
+        "h": "For brands and tourism boards",
+        "p": [
+          "If you would like to talk about a partnership, use the form on the contact page. Tell us who you are, what you would like to promote and when. We will reply by email to discuss what would work."
+        ]
+      },
+      {
+        "h": "Clearly labelled",
+        "p": [
+          "All paid content is labelled. Paid features carry the paid partnership label, and the caption starts with \"Ad\". You can read more in our paid partnership policy."
+        ]
+      },
+      {
+        "h": "Are you a photographer?",
+        "p": [
+          "If you are a photographer who wants your own work featured, please use the Get featured page instead. It is set up for individual photographers and has the details you need."
+        ]
+      }
+    ],
+    "draft": false
+  }
+}

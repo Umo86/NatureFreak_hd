@@ -1,0 +1,9 @@
+{
+  "name": "naturefreak-hd",
+  "version": "1.0.0",
+  "private": true,
+  "description": "naturefreak.org: nature journal, free photographer directory and featured posts",
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0"
+  }
+}
