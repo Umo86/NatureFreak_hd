@@ -28,3 +28,16 @@ Email addresses are never returned by the API. While there are no approved listi
 - Terms, privacy, cookies, refunds and paid partnership pages are drafts for review
 - Payment for features is not built yet: a booking is a request, confirmed by email
 - Sample photos: Pexels and Unsplash contributors
+
+## Journal guides (SEO articles)
+
+Long-form guides live as Markdown in `content/journal/*.md` (front matter: title, SEO title, description,
+keyword, hero photo, key points, FAQ, sources, related guides). Build them with:
+
+    pip install markdown pyyaml
+    python3 tools/build_journal.py
+
+This writes `journal/<slug>.html`, refreshes the guide cards in `blog.html`, and regenerates `sitemap.xml`
+and `robots.txt`. Set `NF_SITE_URL` when the site moves to its own domain (it defaults to
+https://naturefreakhd.vercel.app) so canonical URLs and the sitemap point to the right place.
+Photos are hotlinked from Unsplash with credit; videos load from YouTube only when a reader presses play.
