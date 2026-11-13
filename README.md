@@ -24,7 +24,7 @@ Email addresses are never returned by the API. While there are no approved listi
 
 ## Still placeholders
 
-- Feature prices ("Price on request")
+- Feature prices are set in `PRICES` in the site generator (story £30, feed post £50, reel £80)
 - Terms, privacy, cookies, refunds and paid partnership pages are drafts for review
 - Payment for features is not built yet: a booking is a request, confirmed by email
 - Sample photos: Pexels and Unsplash contributors

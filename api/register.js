@@ -13,7 +13,6 @@ module.exports = endpoint('POST', async (sql, d, res) => {
   if (specs.length < 1 || specs.length > 3) errors.specialisms = 'Choose between one and three.';
   if (instagram && !HANDLE.test(instagram)) errors.instagram = 'Enter an Instagram username, like @yourhandle.';
   if (website && !isUrl(website)) errors.website = 'Enter a web address, like https://example.com.';
-  if (bio.length < 20) errors.bio = 'Write a short bio (at least 20 characters).';
   if (d.own !== true) errors.own = 'Tick this box to confirm the work is your own.';
   if (d.terms !== true) errors.terms = 'Tick this box to agree to the terms and privacy policy.';
   if (Object.keys(errors).length) return invalid(res, errors);

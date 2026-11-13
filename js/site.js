@@ -12,6 +12,7 @@
   var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   var HANDLE = /^@?[A-Za-z0-9._]{1,30}$/;
   var uid = 0;
+  var DRAFT = 'nf-join-draft';
 
   function isUrl(v) { try { var u = new URL(v); return (u.protocol === 'https:' || u.protocol === 'http:') && u.hostname.indexOf('.') > 0; } catch (e) { return false; } }
   function tomorrow() { var d = new Date(Date.now() + 864e5); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
@@ -43,7 +44,7 @@
     date: function (v) { return !v ? 'Choose a date.' : (v < tomorrow() ? 'Choose a date from tomorrow onwards.' : ''); },
     time: function (v) { return v ? '' : 'Choose a time.'; },
     message: function (v) { return v.length < 10 ? 'Write your message (at least 10 characters).' : ''; },
-    bio: function (v) { return v.length < 20 ? 'Write a short bio (at least 20 characters).' : (v.length > 280 ? 'Keep your bio to 280 characters.' : ''); },
+    bio: function (v) { return v.length > 280 ? 'Keep your bio to 280 characters.' : ''; },
     own: tick('Tick this box to confirm the work is your own.'),
     label: tick('Tick this box to continue.'),
     terms: tick('Tick this box to agree to the terms and privacy policy.')
@@ -53,7 +54,7 @@
     var p = $('[data-err="' + name + '"]', scope), list = controls(scope, name);
     if (p) { if (!p.id) p.id = 'nf-err-' + (++uid); p.textContent = msg || ''; p.hidden = !msg; }
     list.forEach(function (c) {
-      if (c.type !== 'checkbox') c.classList.toggle('nf-bad', !!msg);
+      if (c.type !== 'checkbox' && c.type !== 'radio') c.classList.toggle('nf-bad', !!msg);
       if (msg) { c.setAttribute('aria-invalid', 'true'); if (p) c.setAttribute('aria-describedby', p.id); }
       else { c.removeAttribute('aria-invalid'); c.removeAttribute('aria-describedby'); }
     });
@@ -64,6 +65,8 @@
     if (name === 'specialisms') {
       var n = list.filter(function (c) { return c.checked; }).length;
       msg = n < 1 ? 'Choose at least one.' : (n > 3 ? 'Choose up to 3.' : '');
+    } else if (el.type === 'radio') {
+      msg = list.some(function (c) { return c.checked; }) ? '' : (name === 'time' ? 'Choose a time.' : 'Choose one.');
     } else if (RULES[name]) { msg = RULES[name](el.value.trim(), el); }
     setErr(scope, name, msg);
     return msg ? el : null;
@@ -84,7 +87,8 @@
       if (c.type === 'checkbox') {
         if (controls(scope, c.name).length > 1) { data[c.name] = data[c.name] || []; if (c.checked) data[c.name].push(c.value); }
         else data[c.name] = c.checked;
-      } else data[c.name] = c.value.trim();
+      } else if (c.type === 'radio') { if (c.checked) data[c.name] = c.value; else if (!(c.name in data)) data[c.name] = ''; }
+      else data[c.name] = c.value.trim();
     });
     return data;
   }
@@ -109,12 +113,30 @@
     var kind = form.getAttribute('data-nf'), wrap = form.closest('[data-form-wrap]') || form.parentNode;
     var statusEl = $('[data-status]', form), doneEl = $('[data-done]', wrap), btn = $('button[type="submit"]', form);
     var date = $('input[type="date"]', form); if (date) date.min = tomorrow();
+    if (kind === 'booking') {
+      var formats = controls(form, 'format');
+      var relabel = function () {
+        var f = formats.filter(function (c) { return c.checked; })[0];
+        if (f) btn.textContent = 'Request my ' + f.getAttribute('data-label') + ' slot · £' + f.getAttribute('data-price');
+      };
+      var choose = function (v) { formats.forEach(function (c) { if (c.value === v) c.checked = true; }); relabel(); };
+      choose(params.get('format') || '');
+      formats.forEach(function (c) { c.addEventListener('change', relabel); });
+      // "Book a reel" buttons on this page pick the format and jump to the form.
+      $$('a[data-format]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault(); choose(a.getAttribute('data-format'));
+          $('#book').scrollIntoView({ block: 'start' }); $('[name="username"]', form).focus({ preventScroll: true });
+        });
+      });
+    }
     names(form).forEach(function (n) { controls(form, n).forEach(function (c) { c.addEventListener('input', function () { if (c.getAttribute('aria-invalid')) check(form, n); }); }); });
     form.addEventListener('submit', function (e) {
       e.preventDefault(); say(statusEl, '');
       var bad = validate(form, names(form)); if (bad) { bad.focus(); return; }
       var label = btn.textContent; btn.disabled = true; btn.textContent = 'Sending…';
-      send('/api/' + kind, collect(form)).then(function (r) {
+      var data = collect(form); if (kind === 'booking') data.label = data.own;
+      send('/api/' + kind, data).then(function (r) {
         btn.disabled = false; btn.textContent = label;
         if (r.state === 'ok') { form.hidden = true; doneEl.hidden = false; doneEl.focus(); }
         else if (r.state === 'invalid') { var f = applyErrors(form, r.errors); if (f) f.focus(); }
@@ -122,6 +144,18 @@
       });
     });
   });
+
+  /* ---------- home: start registration ---------- */
+  var start = $('form[data-nf-start]');
+  if (start) (function () {
+    ['name', 'email'].forEach(function (n) { controls(start, n)[0].addEventListener('input', function (e) { if (e.target.getAttribute('aria-invalid')) check(start, n); }); });
+    start.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var bad = validate(start, ['name', 'email']); if (bad) { bad.focus(); return; }
+      var d = store.get(DRAFT) || {}, v = collect(start); d.name = v.name; d.email = v.email; store.set(DRAFT, d);
+      location.href = '/join.html';
+    });
+  })();
 
   /* ---------- directory ---------- */
   var plist = $('#plist');
@@ -157,7 +191,7 @@
       if (typeof tags === 'string') tags = tags.split(',').filter(Boolean);
       li.dataset.name = p.name; li.dataset.loc = p.location || p.loc || ''; li.dataset.tags = tags.join(','); li.dataset.hire = (p.for_hire || p.hire) ? '1' : '0'; li.dataset.bio = p.bio || ''; li.dataset.order = i;
       f('initials').textContent = p.name.split(/\s+/).slice(0, 2).map(function (w) { return w.charAt(0); }).join('').toUpperCase();
-      f('name').textContent = p.name; f('loc').textContent = li.dataset.loc; f('bio').textContent = li.dataset.bio; f('hire').hidden = li.dataset.hire !== '1';
+      f('name').textContent = p.name; f('loc').textContent = li.dataset.loc; f('bio').textContent = li.dataset.bio; f('hire').hidden = li.dataset.hire !== '1'; f('bio').hidden = !li.dataset.bio;
       var box = f('tags'), proto = f('tag'); box.textContent = '';
       tags.forEach(function (t) { var s = proto.cloneNode(false); s.textContent = t; box.appendChild(s); });
       var a = f('link'); a.href = '/profile.html?id=' + encodeURIComponent(p.slug); a.lastElementChild.textContent = ' of ' + p.name;
@@ -188,7 +222,7 @@
     function show(p, example) {
       var tags = p.specialisms || p.tags || []; if (typeof tags === 'string') tags = tags.split(',').filter(Boolean);
       f('initials').textContent = p.name.split(/\s+/).slice(0, 2).map(function (w) { return w.charAt(0); }).join('').toUpperCase();
-      f('name').textContent = p.name; f('loc').textContent = p.location || p.loc || ''; f('bio').textContent = p.bio || ''; f('first').textContent = p.name.split(/\s+/)[0];
+      f('name').textContent = p.name; f('loc').textContent = p.location || p.loc || ''; f('bio').textContent = p.bio || (p.name.split(/\s+/)[0] + ' photographs ' + tags.join(', ').toLowerCase() + '.'); f('first').textContent = p.name.split(/\s+/)[0];
       f('hire').hidden = !(p.for_hire || p.hire); f('example').hidden = !example; f('exnote').hidden = !example;
       var box = f('tags'), proto = f('tag'); box.textContent = '';
       tags.forEach(function (t) { var s = proto.cloneNode(false); s.textContent = t; box.appendChild(s); });
@@ -226,41 +260,38 @@
     apply();
   })();
 
-  /* ---------- registration: three steps ---------- */
+  /* ---------- registration: two steps ---------- */
   var jf = $('#join-form');
   if (jf) (function () {
-    var KEY = 'nf-join-draft', wrap = jf.closest('[data-form-wrap]'), inds = $$('[data-step-ind]', jf), cur = 1;
+    var wrap = jf.closest('[data-form-wrap]'), inds = $$('[data-step-ind]', jf), cur = 1, LAST = 2;
     var doneEl = $('[data-done]', wrap), offEl = $('[data-offline]', wrap), statusEl = $('[data-status]', jf), btn = $('button[type="submit"]', jf);
-    var FIELDS = { 1: ['name', 'email', 'location'], 2: ['specialisms', 'instagram', 'website', 'bio'], 3: ['own', 'terms'] };
+    var FIELDS = { 1: ['name', 'email', 'location'], 2: ['specialisms', 'instagram', 'website', 'bio'] };
     var bio = $('[name="bio"]', jf), counter = $('[data-count="bio"]', jf), picks = controls(jf, 'specialisms');
     function panel(n) { return $('[data-step="' + n + '"]', jf); }
     function count() { counter.textContent = bio.value.length; }
-    function review() {
-      var d = collect(jf), set = function (k, v) { $('[data-rev="' + k + '"]', jf).textContent = v; };
-      set('name', d.name); set('email', d.email); set('location', d.location); set('specialisms', d.specialisms.join(', '));
-      set('hire', d.hire ? 'Yes' : 'No'); set('instagram', d.instagram || 'Not given'); set('website', d.website || 'Not given'); set('bio', d.bio);
-    }
     function go(n, focus) {
       cur = n;
-      [1, 2, 3].forEach(function (i) { panel(i).hidden = i !== n; });
+      for (var i = 1; i <= LAST; i++) panel(i).hidden = i !== n;
       inds.forEach(function (li) {
         var i = Number(li.getAttribute('data-step-ind'));
         li.setAttribute('data-state', i === n ? 'current' : (i < n ? 'done' : 'todo'));
         if (i === n) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
       });
-      if (n === 3) review();
       say(statusEl, '');
       if (focus) { var h = $('h2', panel(n)); h.focus(); h.scrollIntoView({ block: 'center' }); }
     }
-    function save() { var d = collect(jf); delete d.company; delete d.own; delete d.terms; store.set(KEY, d); }
+    function save() { var d = collect(jf); delete d.company; store.set(DRAFT, d); }
     function restore() {
-      var d = store.get(KEY); if (!d) return;
+      var d = store.get(DRAFT); if (!d) return;
       ['name', 'email', 'location', 'instagram', 'website', 'bio'].forEach(function (k) { if (typeof d[k] === 'string') controls(jf, k)[0].value = d[k]; });
       if (Array.isArray(d.specialisms)) picks.forEach(function (c) { c.checked = d.specialisms.indexOf(c.value) > -1; });
       controls(jf, 'hire')[0].checked = !!d.hire;
     }
     function next() { var bad = validate(jf, FIELDS[cur]); if (bad) { bad.focus(); return; } save(); go(cur + 1, true); }
     restore(); count();
+    // Arriving from the home page with name and email already given: go straight to the next empty field.
+    var nameEl = controls(jf, 'name')[0], emailEl = controls(jf, 'email')[0], locEl = controls(jf, 'location')[0];
+    if (nameEl.value.trim().length > 1 && EMAIL.test(emailEl.value.trim()) && !locEl.value) locEl.focus({ preventScroll: true });
     bio.addEventListener('input', count);
     picks.forEach(function (c) {
       c.addEventListener('change', function () {
@@ -272,19 +303,19 @@
     jf.addEventListener('input', function (e) { var n = e.target.name; if (n && n !== 'specialisms' && e.target.getAttribute('aria-invalid')) check(jf, n); save(); });
     $$('[data-next]', jf).forEach(function (b) { b.addEventListener('click', next); });
     $$('[data-back]', jf).forEach(function (b) { b.addEventListener('click', function () { go(cur - 1, true); }); });
-    $$('[data-goto]', jf).forEach(function (b) { b.addEventListener('click', function () { go(Number(b.getAttribute('data-goto')), true); }); });
-    $('[data-resume]', wrap).addEventListener('click', function () { offEl.hidden = true; jf.hidden = false; go(3, true); });
+    $('[data-resume]', wrap).addEventListener('click', function () { offEl.hidden = true; jf.hidden = false; go(LAST, true); });
     jf.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (cur < 3) { next(); return; }
-      for (var s = 1; s <= 3; s++) { var bad = validate(jf, FIELDS[s]); if (bad) { if (s !== cur) go(s, false); bad.focus(); return; } }
-      var data = collect(jf), label = btn.textContent; btn.disabled = true; btn.textContent = 'Sending…';
+      if (cur < LAST) { next(); return; }
+      for (var s = 1; s <= LAST; s++) { var bad = validate(jf, FIELDS[s]); if (bad) { if (s !== cur) go(s, false); bad.focus(); return; } }
+      // Submitting is the agreement: the line under the button says so.
+      var data = collect(jf), label = btn.textContent; data.own = true; data.terms = true; btn.disabled = true; btn.textContent = 'Sending…';
       send('/api/register', data).then(function (r) {
         btn.disabled = false; btn.textContent = label;
-        if (r.state === 'ok') { store.del(KEY); $('[data-done-email]', doneEl).textContent = data.email; jf.hidden = true; doneEl.hidden = false; doneEl.focus(); doneEl.scrollIntoView({ block: 'center' }); }
+        if (r.state === 'ok') { store.del(DRAFT); $('[data-done-email]', doneEl).textContent = data.email; jf.hidden = true; doneEl.hidden = false; doneEl.focus(); doneEl.scrollIntoView({ block: 'center' }); }
         else if (r.state === 'invalid') {
           var first = applyErrors(jf, r.errors), name = first && first.name;
-          for (var s = 1; s <= 3; s++) if (FIELDS[s].indexOf(name) > -1) { go(s, false); break; }
+          for (var s = 1; s <= LAST; s++) if (FIELDS[s].indexOf(name) > -1) { go(s, false); break; }
           if (first) first.focus();
         } else { save(); jf.hidden = true; offEl.hidden = false; offEl.focus(); offEl.scrollIntoView({ block: 'center' }); }
       });

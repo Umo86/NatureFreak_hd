@@ -9,7 +9,7 @@ create table if not exists photographers (
   for_hire     boolean not null default false,
   instagram    text not null default '',
   website      text not null default '',
-  bio          text not null,
+  bio          text not null default '',
   status       text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
   created_at   timestamptz not null default now()
 );
